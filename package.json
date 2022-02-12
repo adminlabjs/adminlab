@@ -1,0 +1,14 @@
+{
+  "name": "root",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "lerna exec --scope adminlab -- yarn dev",
+    "docs:dev": "lerna exec --scope adminlab.dev -- yarn dev"
+  }
+}

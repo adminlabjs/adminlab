@@ -1,0 +1,9 @@
+{
+  "name": "@adminlab/use-api",
+  "private": true,
+  "version": "0.0.0",
+  "description": "mock request",
+  "author": "thinkupp <thexwant@gmail.com>",
+  "license": "ISC",
+  "main": "index.ts"
+}

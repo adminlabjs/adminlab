@@ -1,0 +1,64 @@
+{
+  "name": "adminlab",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "serve": "vite preview"
+  },
+  "main": "./dist/adminlab.umd.js",
+  "module": "./dist/adminlab.es.js",
+  "types": "./dist/adminlab.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/adminlab.es.js",
+      "require": "./dist/adminlab.umd.js"
+    },
+    "./dist/adminlab.css": "./dist/adminlab.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "vue",
+    "vuejs",
+    "adminlab",
+    "ui framework",
+    "component framework",
+    "vue framework"
+  ],
+  "devDependencies": {
+    "@adminlab/use-api": "^0",
+    "@element-plus/icons-vue": "^0.2.4",
+    "@quasar/extras": "^1.12.1",
+    "@types/node": "^16.11.10",
+    "@vitejs/plugin-vue": "^1.9.3",
+    "@vitejs/plugin-vue-jsx": "^1.3.0",
+    "axios": "^0.24.0",
+    "element-plus": "^1.3.0-beta.5",
+    "quasar": "^2.3.3",
+    "tslib": "^2.3.1",
+    "typescript": "^4.4.3",
+    "vite": "^2.6.4",
+    "vite-plugin-dts": "^0.9.9",
+    "vue": "^3.2.16",
+    "vue-tsc": "^0.3.0"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adminlabjs/adminlab.git"
+  },
+  "bugs": {
+    "url": "https://github.com/adminlabjs/adminlab/issues"
+  },
+  "engines": {
+    "node": ">= 16"
+  },
+  "author": {
+    "name": "thinkupp",
+    "email": "thexwant@gmail.com"
+  }
+}

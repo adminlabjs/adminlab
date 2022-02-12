@@ -1,0 +1,35 @@
+.a-table-wrapper {
+	position: relative;
+}
+
+.a-load-fail {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background: rgba(255, 255, 255, 0.6);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.a-load-fail-text {
+		color: red;
+		margin-right: 6px;
+	}
+
+	.a-load-fail-button {
+		color: #1976D2;
+		cursor: pointer;
+
+		&:hover {
+			color: #002d5a;	
+		}
+	}
+
+	.a-load-fail-close {
+		position: absolute;
+		top: 6px;
+		right: 6px;
+	}
+}

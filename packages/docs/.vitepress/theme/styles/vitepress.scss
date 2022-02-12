@@ -1,0 +1,50 @@
+.container {
+	font-size: 16px;
+	max-width: 100%;
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-weight: 600;
+		line-height: 1.25;
+	}
+
+	h1 {
+		// color: #00b4ff;
+		font-size: 3rem;
+
+		.header-anchor {
+			// color: inherit;
+		}
+	}
+
+	h2 {
+		font-size: 1.65rem;
+		padding-bottom: 0.3rem;
+		border-bottom: 1px solid var(--c-border);
+		transition: border-color var(--t-color);
+	}
+
+	h3 {
+		margin-top: 2rem;
+		font-size: 1.35rem;
+	}
+
+	.theme-default-content {
+		box-sizing: content-box;
+	}
+
+	p,
+	ol,
+	ul {
+		margin: 1rem 0;
+		line-height: 1.7;
+	}
+
+	table {
+		display: table;
+	}
+}
