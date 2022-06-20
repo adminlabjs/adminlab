@@ -22,6 +22,7 @@ export default defineComponent({
 
 		Object.assign(vm.proxy, {
 			getTableData: () => state.listData.value,
+			fetch,
 		});
 
 		if (slots.default) {
