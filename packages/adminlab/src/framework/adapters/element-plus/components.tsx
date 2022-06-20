@@ -4,14 +4,14 @@ import { useButton, useCol, useColorPicker, useDatePicker, useDialog, useDropdow
 
 let component: Record<ComponentType, {
 	get: () => any;
-	use?: (options: any) => any;
+	use?: (options: any, ext?: Record<string, any>, props?: Record<string, any>) => any;
 }>;
 
 export const getComponents = () => {
 	return component || (component = {
 		[ComponentType.Table]: {
 			get: () => <el-table></el-table>,
-			use: useTable,
+			use: (options, ext, props) => useTable(options, ext, props),
 		},
 		[ComponentType.Pagination]: {
 			get: () => <el-pagination></el-pagination>,

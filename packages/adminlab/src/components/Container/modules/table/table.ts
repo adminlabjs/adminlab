@@ -586,7 +586,7 @@ export const useTable = (
     props: tableProps = {},
     slots = {},
     directives,
-  } = adapter.useComponent(ComponentType.Table, options) || {};
+  } = adapter.useComponent(ComponentType.Table, options, node.props || {}) || {};
 
   const result = h(node, tableProps, slots);
 
@@ -602,6 +602,7 @@ export const useTableWrapper = (node: VNode, opts: ContainerCore) => {
   return h(
     TableWrapper,
     {
+      // todo: 接入开发者传入原组件的loading属性
       loading: loading.value.table,
       error: error.value,
       onReload: fetch,

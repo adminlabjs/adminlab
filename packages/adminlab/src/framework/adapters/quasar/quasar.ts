@@ -40,10 +40,10 @@ export class QuasarAdapter implements FrameworkAdapter {
     }
   }
 
-  public useComponent(type: ComponentType, options: Record<string, any>) {
+  public useComponent(type: ComponentType, options: Record<string, any>, props?: IObject) {
     const component = getComponents()[type];
     if (component && component.use) {
-      return component.use(options, this.options);
+      return component.use(options, this.options, props);
     }
   }
 }

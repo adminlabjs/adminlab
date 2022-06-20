@@ -39,7 +39,8 @@ let component: Record<
     get: () => any;
     use?: (
       options: any,
-      ext?: Record<string, any>
+      ext?: Record<string, any>,
+      props?: Record<string, any>
     ) => {
       props?: Record<string, any>;
       slots?: Slots;
@@ -54,7 +55,7 @@ export const getComponents = () => {
     (component = {
       [ComponentType.Table]: {
         get: () => <q-table></q-table>,
-        use: (options, ext) => useTable(options, ext),
+        use: (options, ext, props) => useTable(options, ext, props),
       },
       [ComponentType.Pagination]: {
         get: () => <q-pagination></q-pagination>,

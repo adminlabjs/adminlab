@@ -3,6 +3,8 @@ import { capitalize } from "vue";
 import { getComponents, isCustomComponent } from "./components";
 
 export class ElementPlusAdapter implements FrameworkAdapter {
+  constructor(private options?: Record<string, any>) {}
+
   public isSupportedComponent(component: any, type: string) {
     if (isCustomComponent(component)) return true;
 
@@ -25,10 +27,10 @@ export class ElementPlusAdapter implements FrameworkAdapter {
     }
   }
 
-  useComponent(componentType: ComponentType, options: Record<string, any>) {
+  public useComponent(componentType: ComponentType, options: Record<string, any>, props?: IObject) {
     const component = getComponents()[componentType];
     if (component && component.use) {
-      return component.use(options);
+      return component.use(options, this.options, props);
     }
   }
 }

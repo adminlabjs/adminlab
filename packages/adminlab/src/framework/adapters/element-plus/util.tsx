@@ -23,7 +23,7 @@ import type {
 import { mergeObject, processUnixTimestamp } from "@/utils";
 import { processSelectOptions } from "@/composables";
 
-export const useTable = (options: UseTableOptions) => {
+export const useTable = (options: UseTableOptions, ext?: Record<string, any>, tableProps?: Record<string, any>) => {
   const {
     listData,
     columns,
@@ -33,12 +33,13 @@ export const useTable = (options: UseTableOptions) => {
     pagination,
     slots: tableSlots,
   } = options;
-
   const customColumns = generateCustomColumns((column) => ({
     field: column.prop,
     label: column.label,
     custom: column.custom,
   }));
+
+  tableProps = tableProps || {};
 
   const slots = {
     default: () => {
@@ -70,6 +71,7 @@ export const useTable = (options: UseTableOptions) => {
 
   return {
     props: {
+      ...tableProps,
       data: listData,
       onSortChange: (event: { column: any; prop: string; order: string }) => {
         const { column, prop, order } = event;

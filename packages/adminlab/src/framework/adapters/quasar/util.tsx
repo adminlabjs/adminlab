@@ -31,7 +31,7 @@ interface QuasarTablePagination {
   sortBy: string | null;
 }
 
-export const useTable = (options: UseTableOptions, ext?: QuasarAdapterOptions) => {
+export const useTable = (options: UseTableOptions, ext?: QuasarAdapterOptions, tableProps?: Record<string, any>) => {
   const {
     listData,
     columns,
@@ -42,6 +42,8 @@ export const useTable = (options: UseTableOptions, ext?: QuasarAdapterOptions) =
     pagination,
     slots: tableSlots,
   } = options;
+
+  tableProps = tableProps || {}
 
   const { defaultColumn = {} } = ext || {};
 
@@ -74,8 +76,6 @@ export const useTable = (options: UseTableOptions, ext?: QuasarAdapterOptions) =
     props: {
       "column-sort-order": "da",
       color: "primary",
-      rows: listData,
-      loading,
       pagination: {
         sortBy: pagination.sortBy || null,
         descending: pagination.descending,
@@ -83,6 +83,9 @@ export const useTable = (options: UseTableOptions, ext?: QuasarAdapterOptions) =
         rowsPerPage: pagination.pageSize,
         rowsNumber: total,
       },
+      ...tableProps,
+      rows: listData,
+      loading: loading || tableProps.loading,
       onRequest: (event: { pagination: QuasarTablePagination }) => {
         request(event.pagination);
       },
