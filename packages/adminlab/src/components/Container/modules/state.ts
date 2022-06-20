@@ -163,10 +163,11 @@ export const useProps = () => {
 
 const useState = () => {
   const props = getCurrentInstance()!.props as UsePropsReturn;
-  const listData = props.listData;
+
+  const { listData, actionGet } = props;
 
   const state = reactive({
-    listData: (Array.isArray(listData) ? listData : []) as any[],
+    listData: [] as any[],
     total: 0,
     loading: {
       table: false,
@@ -181,6 +182,12 @@ const useState = () => {
       descending: false,
     } as Pagination,
   });
+  
+  if (Array.isArray(listData) && !(actionGet instanceof Function)) {
+    watchEffect(() => {
+      state.listData = listData
+    })
+  }
 
   const refs = {
     ...toRefs(
