@@ -185,7 +185,7 @@ const useState = () => {
   
   if (Array.isArray(listData) && !(actionGet instanceof Function)) {
     watchEffect(() => {
-      state.listData = listData
+      state.listData = props.listData!
     })
   }
 
