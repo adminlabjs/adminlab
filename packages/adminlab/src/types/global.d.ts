@@ -18,7 +18,8 @@ declare global {
     getComponent: (type: ComponentType) => any;
     useComponent: (
       type: ComponentType,
-      options: Record<string, any>
+      options: Record<string, any>,
+      props?: Record<string, any>
     ) => {
       props?: Record<string, any>;
       slots?: Slots;
@@ -79,7 +80,7 @@ declare global {
   type Template = PlainTemplate | PlainTemplate[] | TemplateParser;
 
   export interface TableColumnCustom<T = any> {
-    define: DefineType;
+    define: DefineType | ((...args: any[]) => VNode);
     name?: string;
 
     // 自定义label

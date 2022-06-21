@@ -17,3 +17,5 @@ export {
 	QuasarAdapter,
 	ElementPlusAdapter
 } from "./framework";
+
+export * from "./define";

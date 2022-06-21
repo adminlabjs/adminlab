@@ -394,6 +394,10 @@ const generateCustomColumn = (
     newValue = transformer(row, scope);
   }
 
+  if (define instanceof Function) {
+    return define(row)
+  }
+
   if (define === "link") {
     return createLinkNode(newValue, label, props);
   }
