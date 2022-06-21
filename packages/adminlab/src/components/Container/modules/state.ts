@@ -114,7 +114,7 @@ const useFetch = (state: UseStateReturn, query: UseQueryReturn) => {
       const result = actionGet({
         ...emitValue.params,
         ...emitValue.query,
-      });
+      }, emitValue.pagination, emitValue.query);
       if (isPromise(result)) {
         loading.value.table = true;
         result.then(setValue).catch(() => {
@@ -140,7 +140,7 @@ export const useProps = () => {
     },
     actionGet: {
       type: Function as PropType<
-        (params: IObject) => ActionGetResponse | Promise<ActionGetResponse>
+        (params: IObject, pagination: IObject, query: IObject) => ActionGetResponse | Promise<ActionGetResponse>
       >,
     },
     autoTrim: {
