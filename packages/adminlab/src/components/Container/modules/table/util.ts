@@ -117,15 +117,15 @@ export const createMapNode = (
   const { type, loadOptions, dependsOn } = config;
   let { options } = config;
 
-  if (!options || !options.length) {
-    if (!dependsOn && loadOptions instanceof Function) {
-      const result = loadOptions();
-      if (!isPromise(result)) {
-        // @ts-ignore
-        options = result;
-      }
-    }
-  }
+  // if (!options || !options.length) {
+  //   if (!dependsOn && loadOptions instanceof Function) {
+  //     const result = loadOptions();
+  //     if (!isPromise(result)) {
+  //       // @ts-ignore
+  //       options = result;
+  //     }
+  //   }
+  // }
 
   if (Array.isArray(options)) {
     const option = options.find((option) => option.value === value);
