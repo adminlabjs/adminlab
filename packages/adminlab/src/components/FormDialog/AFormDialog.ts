@@ -1,3 +1,4 @@
+import { setInstanceProperty } from '@/utils/instance';
 import { defineComponent, h, ref, getCurrentInstance, watch, nextTick } from "vue";
 import type { PropType } from "vue";
 import { ADialog, AGridForm, AContainer } from "@/components";
@@ -49,7 +50,7 @@ export default defineComponent({
     let copyData: FormData = null;
     let isUpdate = false;
 
-    Object.assign(vm.proxy, {
+    setInstanceProperty({
       open: (e: OpenFormDialogEvent) => {
         editData = e.edit;
         copyData = e.copy;
@@ -57,7 +58,7 @@ export default defineComponent({
 
         modelValue.value = true;
       },
-    });
+    })
 
     const formRef = ref<any>(null);
     const loading = ref(false);

@@ -1,5 +1,6 @@
+import { setInstanceProperty } from '@/utils';
 import { UseDialogOptions } from "@/types/components";
-import { h, defineComponent, ref, reactive, getCurrentInstance } from "vue";
+import { h, defineComponent, ref, reactive } from "vue";
 import { ADialog } from "@/components";
 
 export interface ConfirmEvent {
@@ -49,10 +50,9 @@ export default defineComponent({
       stopLoading: () => (loading.value = false),
     };
 
-    const vm = getCurrentInstance()!;
-    Object.assign(vm.proxy, {
+    setInstanceProperty({
       open,
-    });
+    })
 
     return () => {
       const options: UseDialogOptions = {

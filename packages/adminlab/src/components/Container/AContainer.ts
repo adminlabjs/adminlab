@@ -1,3 +1,4 @@
+import { setInstanceProperty } from '@/utils/instance';
 import { defineComponent, h, onBeforeMount, onBeforeUnmount, getCurrentInstance } from "vue";
 import { framework } from "@/framework";
 import { useModule, useCore, useProps } from "./modules";
@@ -18,12 +19,10 @@ export default defineComponent({
 
 		const module = useModule(core);
 
-		const vm = getCurrentInstance()!;
-
-		Object.assign(vm.proxy, {
+		setInstanceProperty({
 			getTableData: () => state.listData.value,
 			fetch,
-		});
+		})
 
 		if (slots.default) {
 			const defaultSlots = slots.default;

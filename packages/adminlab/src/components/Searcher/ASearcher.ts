@@ -1,8 +1,8 @@
 import { getFormFunctionProps, getLayoutProps, makeFormFunctionProps, makeInternalColumnsProps, makeLayoutProps, useFormItems } from "@/composables";
-import { defineComponent, getCurrentInstance, h, ref } from "vue";
+import { defineComponent, h, ref } from "vue";
 import { AGridForm } from "@/components";
 import { setCurrentModule } from "@/adminlab";
-import { mergeClass } from "@/utils";
+import { mergeClass, setInstanceProperty } from "@/utils";
 
 export default defineComponent({
   name: "ASearcher",
@@ -13,9 +13,8 @@ export default defineComponent({
     const makeSearcherItems = () => useFormItems("searcher");
     const { autoSearch, debounce, defaultValue } = props;
     const gridFormRef = ref<any>(null);
-    const vm = getCurrentInstance()!;
 
-    Object.assign(vm.proxy, {
+    setInstanceProperty({
       resetModel: () => gridFormRef.value.resetModel(),
     })
 

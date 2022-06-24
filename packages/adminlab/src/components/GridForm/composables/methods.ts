@@ -1,11 +1,9 @@
-import { getCurrentInstance } from "vue";
+import { setInstanceProperty } from '@/utils/instance';
 
 type Done = (valid: boolean, model: IObject) => void;
 
 const useSubmit = (validate: (done: Done) => void) => {
-  const vm = getCurrentInstance()!;
-
-  Object.assign(vm.proxy, {
+  setInstanceProperty({
     submit: () => {
       return new Promise((resolve, reject) => {
         const done: Done = (valid, model) => {
@@ -19,15 +17,13 @@ const useSubmit = (validate: (done: Done) => void) => {
         validate(done);
       });
     },
-  });
+  })
 };
 
 const useReset = (resetModel: () => void) => {
-  const vm = getCurrentInstance()!;
-
-  Object.assign(vm.proxy, {
+  setInstanceProperty({
     resetModel,
-  });
+  })
 };
 
 export const useMethods = (
