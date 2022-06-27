@@ -16,14 +16,15 @@ import {
   makeBaseColOptions,
   useFormLayout,
 } from "@/composables";
-import { isPromise } from "@/utils";
+import { filter, isPromise } from "@/utils";
+import { ASearcherItem } from "../Searcher";
 
 export default defineComponent({
   name: "AGridForm",
   inheritAttrs: false,
   emits: ["change", "submit"],
 
-  setup(props, { attrs, slots, emit }) {
+  setup(props, { attrs, slots: defaultSlots, emit }) {
     const { model: modelValue, getModel, resetModel } = useModel();
     const makeSelectRecord = () => useSelectRecord(modelValue.value);
     let selectRecord = makeSelectRecord();
@@ -95,8 +96,6 @@ export default defineComponent({
           });
         });
     });
-
-    const gridFormLayout = useFormLayout(items.length);
 
     const makeFormItems = () => {
       const model = modelValue.value;
@@ -206,6 +205,10 @@ export default defineComponent({
     };
 
     return () => {
+      const nonStandardSlots = defaultSlots.default?.() || [];
+      const standardSlots = defaultSlots.standard?.() || [];
+      const gridFormLayout = useFormLayout(items.length + standardSlots.length);
+
       const options: UseFormOptions = {
         ...getRulesProps(),
         model: getModel(),
@@ -228,8 +231,8 @@ export default defineComponent({
         },
         () =>
           h(Row, props, () =>
-            slots?.default?.().map((node, i) => {
-              const { layout } = items[i];
+            [...(slots?.default?.() || []), ...standardSlots].map((node, i) => {
+              const { layout } = items[i] || {};
               const layoutOptions =
                 typeof layout === "object"
                   ? layout
@@ -245,7 +248,7 @@ export default defineComponent({
                 framework.useComponent(ComponentType.Col, options);
 
               return h(Col, colProps, () => node);
-            })
+            }).concat(nonStandardSlots)
           )
       );
     };

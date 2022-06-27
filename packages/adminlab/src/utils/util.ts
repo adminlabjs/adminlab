@@ -7,3 +7,21 @@ export const processUnixTimestamp = (val: any) => {
 
 	return val;
 }
+
+export const filter = <T = any>(ary: T[], predicate: (value: T, index: number) => boolean): {
+	match: T[];
+	mismatch: T[];
+} => {
+	const match: T[] = [];
+	const mismatch: T[] = [];
+
+	for(let i = 0; i < ary.length; i++) {
+		const val = ary[i];
+		predicate(val, i) ? match.push(val) : mismatch.push(val)
+	}
+
+	return {
+		match,
+		mismatch,
+	}
+}
