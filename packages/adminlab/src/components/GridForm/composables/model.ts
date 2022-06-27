@@ -11,7 +11,10 @@ export const useModel = () => {
 
     return props.items.filter(item => !item.render && item.field).reduce((model, val) => {
       const { field } = val;
-      model[field] = defaultValue[field] || "";
+      const v = defaultValue[field]
+      if (v !== void 0) {
+        model[field] = v
+      }
       return model;
     }, {} as Record<string, any>);
   }

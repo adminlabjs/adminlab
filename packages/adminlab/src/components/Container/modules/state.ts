@@ -218,14 +218,14 @@ const useQuery = () => {
   const { props, emit } = getCurrentInstance()!;
   const query = ref<IObject>({});
 
-  watchEffect(() => {
-    const propsQuery = (props.query as IObject) || {};
-    for (const key in propsQuery) {
-      if (propsQuery.hasOwnProperty(key)) {
-        query.value[key] = propsQuery[key];
-      }
-    }
-  });
+  // watchEffect(() => {
+  //   const propsQuery = (props.query as IObject) || {};
+  //   for (const key in propsQuery) {
+  //     if (propsQuery.hasOwnProperty(key)) {
+  //       query.value[key] = propsQuery[key];
+  //     }
+  //   }
+  // });
 
   watch(
     query,
