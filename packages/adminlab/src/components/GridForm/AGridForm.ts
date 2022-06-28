@@ -115,7 +115,7 @@ export default defineComponent({
           placeholder,
           modelValue: model[field],
           "onUpdate:modelValue": (newValue) => {
-            if (newValue === null || newValue === void 0) newValue = "";
+            // if (newValue === null || newValue === void 0) newValue = "";
             const oldValue = model[field];
 
             if (oldValue !== newValue) {
