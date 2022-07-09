@@ -15,6 +15,7 @@ export const useSelectRecord = (models: IObject) => {
       showRefresh: Ref<boolean>;
       loadOptions?: LoadOptions;
       dependsOn?: string;
+      preload?: boolean;
     }
   > = {};
 
@@ -23,7 +24,7 @@ export const useSelectRecord = (models: IObject) => {
 
     if (!dict[field]) {
       // @ts-ignore
-      const { loadOptions, options = [], dependsOn } = config;
+      const { loadOptions, options = [], dependsOn, preload } = config;
       const selectOptions = loadOptions instanceof Function ? [] : options;
       dict[field] = {
         loading: ref(false),
@@ -34,6 +35,7 @@ export const useSelectRecord = (models: IObject) => {
         dependsOn,
         timestamp: -1,
         showRefresh: ref(false),
+        preload,
       };
 
       loadSelectOptions(field);
@@ -44,14 +46,21 @@ export const useSelectRecord = (models: IObject) => {
 
   const loadSelectOptions = (field: string, reset = false) => {
     const select = dict[field];
-    const { loadOptions, options, loading, error, dependsOn, showRefresh } =
-      select;
+    const {
+      loadOptions,
+      options,
+      loading,
+      error,
+      dependsOn,
+      showRefresh,
+      preload,
+    } = select;
 
     if (!(loadOptions instanceof Function)) return;
 
     if (dependsOn && dependsOn !== field) {
       const val = models[dependsOn];
-      if (!val && val !== 0) {
+      if (!val && val !== 0 && !preload) {
         return;
       }
     }
@@ -86,19 +95,19 @@ export const useSelectRecord = (models: IObject) => {
   };
 
   const findDependent = (field: string) => {
-    return Object.entries(dict).filter(item => item[1].dependsOn === field);
+    return Object.entries(dict).filter((item) => item[1].dependsOn === field);
   };
 
   const onModelsChange = () => {
     for (const key in models) {
-			const select = dict[key];
-			if (select) {
-				const newValue = models[key];
-				if (newValue !== select.value) {
-					select.value = newValue;
-					const dependents = findDependent(key);
-					if (dependents.length) {
-            dependents.forEach(item => {
+      const select = dict[key];
+      if (select) {
+        const newValue = models[key];
+        if (newValue !== select.value) {
+          select.value = newValue;
+          const dependents = findDependent(key);
+          if (dependents.length) {
+            dependents.forEach((item) => {
               const key = item[0];
               if (newValue || newValue === 0) {
                 loadSelectOptions(key, true);
@@ -106,25 +115,25 @@ export const useSelectRecord = (models: IObject) => {
                 models[key] = "";
                 resetSelect(key);
               }
-            })
-					}
-				}
-			}
+            });
+          }
+        }
+      }
     }
   };
 
-	const resetSelect = (field: string) => {
-		const select = dict[field];
-		select.options.value = [];
-		select.loading.value = false;
-		select.error.value = "";
-		select.timestamp = -1;
-	}
+  const resetSelect = (field: string) => {
+    const select = dict[field];
+    select.options.value = [];
+    select.loading.value = false;
+    select.error.value = "";
+    select.timestamp = -1;
+  };
 
-	watch(models, onModelsChange);
+  watch(models, onModelsChange);
 
-	return {
-		set,
+  return {
+    set,
     loadSelectOptions,
-	}
+  };
 };

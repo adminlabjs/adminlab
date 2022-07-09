@@ -85,6 +85,7 @@ export const makeGridFormItem = (
     config.options = options;
     config.dependsOn = map.dependsOn;
     config.loadOptions = map.loadOptions;
+    config.preload = map.preload
   }
 
   // todo: configurable

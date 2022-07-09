@@ -58,6 +58,7 @@ declare global {
     loadOptions: LoadOptions<T>;
     dependsOn: string;
     formType: FieldFormType | ((from: RuleType) => FieldFormType);
+    preload: boolean;
   };
 
   type TemplateParser = (
@@ -192,6 +193,7 @@ declare global {
           options: SelectOption[];
           loadOptions: LoadOptions;
           dependsOn: string;
+          preload: boolean;
         }
       // date/datetime config
       | {
