@@ -79,6 +79,7 @@ export interface FormItemBaseOptions {
   label?: string;
   placeholder?: string;
   props?: IObject;
+  slots?: Slots;
 }
 
 export interface UseSelectOptions extends FormItemBaseOptions {
@@ -128,6 +129,7 @@ export interface UseDialogOptions {
   persistent?: boolean;
   loading?: boolean;
   props?: IObject;
+  slots?: Slots;
 }
 
 export interface UsePagination {
@@ -137,12 +139,14 @@ export interface UsePagination {
   onPageChange: (newPageNumber: number) => void;
   onPageSizeChange: (newPageSize: number) => void;
   props?: IObject;
+  slots?: Slots;
 }
 
 export interface UseImageOptions {
   src: string;
   imgClass?: string;
   props?: IObject;
+  slots?: Slots;
 }
 
 export type UseRadioGroupOptions = UseSelectOptions;

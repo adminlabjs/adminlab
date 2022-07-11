@@ -355,7 +355,7 @@ export const useCol = (options: UseColOptions) => {
 };
 
 export const useInput = (options: UseInputOptions) => {
-  const { placeholder, label, modelValue, props = {}, textarea } = options;
+  const { placeholder, label, modelValue, props = {}, slots = {}, textarea } = options;
   const type = textarea ? "textarea" : "text";
 
   return {
@@ -367,6 +367,8 @@ export const useInput = (options: UseInputOptions) => {
       "model-value": modelValue,
       "onUpdate:modelValue": options["onUpdate:modelValue"],
     },
+
+    slots,
   };
 };
 

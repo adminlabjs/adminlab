@@ -100,6 +100,7 @@ declare global {
     buttons: TableColumnButtons<T>;
     // doc: 在`from`为"table"时，row才会有内容
     props: (type: RuleType, row?: T) => Record<string, any> | undefined;
+    slots?: (type: RuleType) => Slots;
     // 自定义渲染
     render?: (scope: any) => VNode;
     template?: Template;
@@ -208,6 +209,7 @@ declare global {
     render?: Slot | VNode | VNode[];
     rule?: GridFormRule;
     props?: IObject;
+    slots?: Slots;
 
     // showWhen?: (formData: IObject, field: string) => boolean;
   }

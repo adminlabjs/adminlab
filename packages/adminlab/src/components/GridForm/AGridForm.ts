@@ -1,11 +1,9 @@
 import { ComponentType, framework } from "@/framework";
 import {
   FormItemBaseOptions,
-  UseButtonOptions,
   UseColOptions,
   UseDatePickerOptions,
   UseFormOptions,
-  UseRadioGroupOptions,
   UseSelectOptions,
 } from "@/types/components";
 import { defineComponent, h, computed, isVNode, ref } from "vue";
@@ -16,8 +14,7 @@ import {
   makeBaseColOptions,
   useFormLayout,
 } from "@/composables";
-import { filter, isPromise } from "@/utils";
-import { ASearcherItem } from "../Searcher";
+import { isPromise } from "@/utils";
 
 export default defineComponent({
   name: "AGridForm",
@@ -33,7 +30,8 @@ export default defineComponent({
     const formRef = ref<any>(null);
 
     let debounceTimer: ReturnType<typeof setTimeout>;
-    const onChange = () => setTimeout(() => emit("change", getModel()) /* 借此依赖清除 */, 0);
+    const onChange = () =>
+      setTimeout(() => emit("change", getModel()) /* 借此依赖清除 */, 0);
 
     const onModelValueChange = (isInput: boolean) => {
       if (!isInput || !debounce || isNaN(debounce) || debounce <= 0) {
@@ -106,6 +104,7 @@ export default defineComponent({
           placeholder,
           field,
           props = {},
+          slots = {},
           config = {},
           type,
         } = item;
@@ -127,6 +126,7 @@ export default defineComponent({
             onKeyup,
             ...props,
           },
+          slots,
         });
 
         const inputTypes = ["input", "date", "datetime", "time", "color"];
@@ -153,7 +153,7 @@ export default defineComponent({
               props: selectProps,
               slots = {},
             } = framework.useComponent(ComponentType.Select, options);
-  
+
             return h(Select, selectProps, slots);
           }
 
@@ -221,7 +221,10 @@ export default defineComponent({
         slots,
       } = framework.useComponent(ComponentType.Form, options);
 
-      const { component: Row, props = {} } = framework.useComponent(ComponentType.Row, {});
+      const { component: Row, props = {} } = framework.useComponent(
+        ComponentType.Row,
+        {}
+      );
 
       return h(
         Form,
@@ -231,24 +234,26 @@ export default defineComponent({
         },
         () =>
           h(Row, props, () =>
-            [...(slots?.default?.() || []), ...standardSlots].map((node, i) => {
-              const { layout } = items[i] || {};
-              const layoutOptions =
-                typeof layout === "object"
-                  ? layout
-                  : {
-                      [defaultColKey]: layout,
-                    };
-              const options: UseColOptions = makeBaseColOptions(
-                gridFormLayout,
-                i,
-                layoutOptions
-              );
-              const { component: Col, props: colProps } =
-                framework.useComponent(ComponentType.Col, options);
+            [...(slots?.default?.() || []), ...standardSlots]
+              .map((node, i) => {
+                const { layout } = items[i] || {};
+                const layoutOptions =
+                  typeof layout === "object"
+                    ? layout
+                    : {
+                        [defaultColKey]: layout,
+                      };
+                const options: UseColOptions = makeBaseColOptions(
+                  gridFormLayout,
+                  i,
+                  layoutOptions
+                );
+                const { component: Col, props: colProps } =
+                  framework.useComponent(ComponentType.Col, options);
 
-              return h(Col, colProps, () => node);
-            }).concat(nonStandardSlots)
+                return h(Col, colProps, () => node);
+              })
+              .concat(nonStandardSlots)
           )
       );
     };

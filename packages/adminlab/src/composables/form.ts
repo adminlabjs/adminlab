@@ -29,9 +29,10 @@ export const makeGridFormItem = (
   rule: Exclude<RuleType, "table">
 ): GridFormItem => {
   const { field, label, custom } = column;
-  const { define, map, props, extension = {} } = custom!;
+  const { define, map, props, slots, extension = {} } = custom!;
 
   const _props = props instanceof Function ? props(rule) || {} : {};
+  const _slots = slots instanceof Function ? slots(rule) || {} : {};
 
   if (_props.clearable === void 0) {
     const module =
@@ -100,6 +101,7 @@ export const makeGridFormItem = (
     type,
     config,
     props: _props,
+    slots: _slots,
   };
 };
 
