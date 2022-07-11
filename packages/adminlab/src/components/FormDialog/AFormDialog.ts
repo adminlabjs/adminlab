@@ -58,6 +58,16 @@ export default defineComponent({
 
         modelValue.value = true;
       },
+
+      getModel: () => {
+        return formRef.value ? formRef.value.getModel() : {};
+      },
+
+      updateModel: (key: string, value: any) => {
+        if (formRef.value) {
+          formRef.value.updateModel(key, value);
+        }
+      }
     })
 
     const formRef = ref<any>(null);

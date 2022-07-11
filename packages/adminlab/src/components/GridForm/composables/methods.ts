@@ -29,7 +29,14 @@ const useReset = (resetModel: () => void) => {
 export const useMethods = (
   validate: Parameters<typeof useSubmit>[0],
   resetModel: Parameters<typeof useReset>[0],
+  getModel: () => Record<string, any>,
+  updateModel: (key: string, value: any) => void,
 ) => {
   useSubmit(validate);
 	useReset(resetModel);
+
+  setInstanceProperty({
+    getModel,
+    updateModel,
+  })
 };

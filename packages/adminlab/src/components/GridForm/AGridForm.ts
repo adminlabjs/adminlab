@@ -77,7 +77,9 @@ export default defineComponent({
       () => {
         resetModel(onChange);
         selectRecord = makeSelectRecord();
-      }
+      },
+      () => modelValue.value,
+      (key: string, value: any) => modelValue.value[key] = value,
     );
 
     const formItems = computed(() => {
