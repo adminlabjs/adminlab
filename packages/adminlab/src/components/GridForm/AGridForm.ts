@@ -44,7 +44,11 @@ export default defineComponent({
     };
 
     const onKeyup = (event: any) => {
-      if (event.key.toLowerCase() === "enter") {
+      const { key, target } = event;
+      if (key.toLowerCase() === "enter") {
+        if (!target || (target.nodeName || "").toLowerCase() === 'textarea') {
+          return;
+        }
         emit("submit", getModel());
       }
     };
