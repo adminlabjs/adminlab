@@ -246,6 +246,7 @@ export const useSelect = (options: UseSelectOptions) => {
     loading,
     onRefresh,
     showRefresh,
+    slots = {},
   } = options;
 
   return {
@@ -273,6 +274,7 @@ export const useSelect = (options: UseSelectOptions) => {
             }}
           ></q-btn>
         )] : [],
+      ...slots,
     },
   };
 };
