@@ -14,7 +14,7 @@ import { filter, mergeClass, setInstanceProperty } from "@/utils";
 export default defineComponent({
   name: "ASearcher",
   inheritAttrs: false,
-  emits: ["fetch"],
+  emits: ["fetch", "change"],
 
   setup(props, { attrs, emit, slots }) {
     const makeSearcherItems = () => useFormItems("searcher");
@@ -23,6 +23,7 @@ export default defineComponent({
 
     setInstanceProperty({
       resetModel: () => gridFormRef.value.resetModel(),
+      getModel: () => gridFormRef.value.getModel(),
     });
 
     return () => {
@@ -49,12 +50,13 @@ export default defineComponent({
             from: "searcher",
             items: makeSearcherItems(),
             onChange: (event: IObject) => {
+              emit("change", event);
               if (autoSearch) {
-                emit("fetch", event);
+                emit("fetch");
               }
             },
-            onSubmit: (event: IObject) => {
-              emit("fetch", event);
+            onSubmit: () => {
+              emit("fetch");
             },
             module: "searcher",
             debounce,

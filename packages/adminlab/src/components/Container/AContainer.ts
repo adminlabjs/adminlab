@@ -1,5 +1,5 @@
 import { setInstanceProperty } from '@/utils/instance';
-import { defineComponent, h, onBeforeMount, onBeforeUnmount, getCurrentInstance } from "vue";
+import { defineComponent, h, onBeforeUnmount, onMounted } from "vue";
 import { framework } from "@/framework";
 import { useModule, useCore, useProps } from "./modules";
 
@@ -32,7 +32,7 @@ export default defineComponent({
 			}
 		}
 
-		onBeforeMount(() => {
+		onMounted(() => {
 			fetch();
 		})
 

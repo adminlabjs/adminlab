@@ -2,9 +2,7 @@ import {
   getCurrentInstance,
   reactive,
   toRefs,
-  ref,
   watchEffect,
-  watch,
 } from "vue";
 import type { PropType, ExtractPropTypes } from "vue";
 
@@ -22,7 +20,6 @@ export interface ActionGetResponse {
 export type UsePropsReturn = ExtractPropTypes<ReturnType<typeof useProps>>;
 export type UseStateReturn = ReturnType<typeof useState>;
 export type UseFetchReturn = ReturnType<typeof useFetch>;
-export type UseQueryReturn = ReturnType<typeof useQuery>;
 export type UseSearchReturn = ReturnType<typeof useSearch>;
 export type ContainerCore = ReturnType<typeof useCore>;
 
@@ -36,8 +33,8 @@ const useSearch = (state: UseStateReturn, fetch: UseFetchReturn) => {
   };
 };
 
-const useFetch = (state: UseStateReturn, query: UseQueryReturn) => {
-  const { listData, total, loading, pagination, error } = state;
+const useFetch = (state: UseStateReturn) => {
+  const { listData, total, loading, pagination, error, refs } = state;
   type Params = Omit<typeof pagination.value, "descending" | "sortBy"> &
     Partial<{
       sortBy: string | undefined;
@@ -65,7 +62,9 @@ const useFetch = (state: UseStateReturn, query: UseQueryReturn) => {
   };
 
   const processQuery = () => {
-    return Object.entries(query.value).reduce((query, kv) => {
+    const query = refs.searcher.value ? refs.searcher.value.getModel() : {};
+
+    return Object.entries(query).reduce((query, kv) => {
       const key = kv[0];
       let value = kv[1];
 
@@ -214,41 +213,13 @@ const useState = () => {
   };
 };
 
-const useQuery = () => {
-  const { props, emit } = getCurrentInstance()!;
-  const query = ref<IObject>({});
-
-  // watchEffect(() => {
-  //   const propsQuery = (props.query as IObject) || {};
-  //   for (const key in propsQuery) {
-  //     if (propsQuery.hasOwnProperty(key)) {
-  //       query.value[key] = propsQuery[key];
-  //     }
-  //   }
-  // });
-
-  watch(
-    query,
-    () => {
-      emit("update:query", query.value);
-    },
-    {
-      deep: true,
-    }
-  );
-
-  return query;
-};
-
 export const useCore = () => {
   const state = useState();
-  const query = useQuery();
-  const fetch = useFetch(state, query);
+  const fetch = useFetch(state);
   const search = useSearch(state, fetch);
 
   return {
     state,
-    query,
     fetch,
     search,
     emitter: new EventEmitter(),

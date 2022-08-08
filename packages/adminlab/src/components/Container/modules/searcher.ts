@@ -5,13 +5,12 @@ import { ABlock } from "@/components";
 import { getFormFunctionProps } from "@/composables";
 
 export const useSearcher = (node: VNode, opts: ContainerCore) => {
-  const { search, query, state, props } = opts;
+  const { search, state, props } = opts;
   const { internalColumns, refs } = state;
 
   return h(node, {
     columns: internalColumns.value,
-    onFetch: (formData: IObject) => {
-      query.value = formData;
+    onFetch: () => {
       search();
     },
     ref: refs.searcher,
