@@ -88,7 +88,7 @@ const useFetch = (state: UseStateReturn) => {
 
   let latestRequestTimestamp = -1;
 
-  return () => {
+  const fetch = () => {
     error.value = false;
     const emitValue = {
       params: makeParams(),
@@ -124,6 +124,14 @@ const useFetch = (state: UseStateReturn) => {
       } else {
         setValue(result);
       }
+    }
+  }
+
+  return () => {
+    if (refs.searcher.value) {
+      refs.searcher.value.submit().then(fetch)
+    } else {
+      fetch()
     }
   };
 };

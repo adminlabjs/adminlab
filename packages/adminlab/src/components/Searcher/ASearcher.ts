@@ -1,6 +1,7 @@
 import {
   getFormFunctionProps,
   getLayoutProps,
+  getRulesProps,
   makeFormFunctionProps,
   makeInternalColumnsProps,
   makeLayoutProps,
@@ -10,6 +11,7 @@ import { defineComponent, h, ref } from "vue";
 import { AGridForm, ASearcherItem } from "@/components";
 import { setCurrentModule } from "@/adminlab";
 import { filter, mergeClass, setInstanceProperty } from "@/utils";
+import type { PropType } from "vue";
 
 export default defineComponent({
   name: "ASearcher",
@@ -24,6 +26,7 @@ export default defineComponent({
     setInstanceProperty({
       resetModel: () => gridFormRef.value.resetModel(),
       getModel: () => gridFormRef.value.getModel(),
+      submit: () => gridFormRef.value.submit(),
     });
 
     return () => {
@@ -47,6 +50,7 @@ export default defineComponent({
               layoutSm: 6,
             }),
             ...getFormFunctionProps(),
+            ...getRulesProps(),
             from: "searcher",
             items: makeSearcherItems(),
             onChange: (event: IObject) => {
@@ -89,5 +93,9 @@ export default defineComponent({
       type: Object,
       default: null,
     },
+    rules: {
+      type: Object as PropType<Record<string, any>>,
+      default: () => ({}),
+    }
   },
 });
