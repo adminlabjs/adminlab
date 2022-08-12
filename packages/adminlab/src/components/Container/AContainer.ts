@@ -15,13 +15,14 @@ export default defineComponent({
 		}
 
 		const core = useCore();
-		const { fetch, emitter, state } = core;
+		const { fetch, search, emitter, state } = core;
 
 		const module = useModule(core);
 
 		setInstanceProperty({
 			getTableData: () => state.listData.value,
 			fetch,
+			search,
 		})
 
 		if (slots.default) {
