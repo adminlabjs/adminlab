@@ -30,7 +30,7 @@ export default defineComponent({
   inheritAttrs: false,
   emits: ["submit", "done", "change"],
 
-  setup(props, { attrs, emit }) {
+  setup(props, { attrs, slots, emit }) {
     const vm = getCurrentInstance()!;
 
     if (vm.parent?.type !== AContainer) {
@@ -150,7 +150,7 @@ export default defineComponent({
               },
               onSubmit: handleSubmit,
               module: "formDialog",
-            });
+            }, slots);
           },
         }
       );
