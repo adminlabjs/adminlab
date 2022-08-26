@@ -9,7 +9,7 @@ export const useSearcher = (node: VNode, opts: ContainerCore) => {
   const { internalColumns, refs } = state;
 
   return h(node, {
-    columns: internalColumns.value,
+    columns: internalColumns,
     onFetch: () => {
       search();
     },

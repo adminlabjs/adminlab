@@ -448,7 +448,6 @@ export const useTable = (
   const { state, fetch } = opts;
   const {
     listData,
-    internalColumns,
     formDialog,
     loading,
     pagination,
@@ -478,9 +477,7 @@ export const useTable = (
     generateCustomColumns: (makeInternalColumn) => {
       const columns = originalColumns.map(makeInternalColumn);
 
-      if (!internalColumns.value.length && columns.length) {
-        internalColumns.value = columns;
-      }
+      state.internalColumns = columns;
 
       const findColumn = (name: string) =>
         columns.find((column) => column.custom?.name === name);

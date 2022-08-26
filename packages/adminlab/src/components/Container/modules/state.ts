@@ -185,7 +185,6 @@ const useState = () => {
     },
     visible: {},
     error: false,
-    internalColumns: [] as InternalTableColumn[],
     pagination: {
       page: props.page,
       pageSize: props.pageSize,
@@ -220,6 +219,7 @@ const useState = () => {
     refs,
     formDialog,
 
+    internalColumns: [] as InternalTableColumn[],
     openFormDialog: () =>
       (refs.formDialog.value.open as OpenFormDialog)(formDialog),
   };

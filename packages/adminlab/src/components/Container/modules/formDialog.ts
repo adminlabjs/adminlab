@@ -11,7 +11,7 @@ export const useFormDialog = (opts: ContainerCore, node?: VNode) => {
 
 	// @ts-ignore
   return h(component, {
-    columns: internalColumns.value,
+    columns: internalColumns,
     onDone: fetch,
     ref: refs.formDialog,
     ...getActionProps(),
