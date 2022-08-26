@@ -33,9 +33,11 @@ export default defineComponent({
 			}
 		}
 
-		onMounted(() => {
-			fetch();
-		})
+		if (props.autoFetch) {
+			onMounted(() => {
+				fetch();
+			})
+		}
 
 		onBeforeUnmount(() => emitter.removeAll());
 

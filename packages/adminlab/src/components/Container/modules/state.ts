@@ -164,6 +164,10 @@ export const useProps = () => {
     },
     listData: {
       type: Array,
+    },
+    autoFetch: {
+      type: Boolean,
+      default: true,
     }
   };
 };
