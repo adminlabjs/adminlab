@@ -26,7 +26,7 @@ export default defineComponent({
     const makeSelectRecord = () => useSelectRecord(modelValue.value);
     let selectRecord = makeSelectRecord();
 
-    const { showWhen, from, debounce, rules, items } = props;
+    const { showWhen, from, debounce, rules } = props;
     const formRef = ref<any>(null);
 
     let debounceTimer: ReturnType<typeof setTimeout>;
@@ -211,6 +211,7 @@ export default defineComponent({
     };
 
     return () => {
+      const items = makeFormItems();
       const nonStandardSlots = defaultSlots.default?.() || [];
       const standardSlots = defaultSlots.standard?.() || [];
       const gridFormLayout = useFormLayout(items.length + standardSlots.length);
